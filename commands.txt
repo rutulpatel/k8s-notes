@@ -1,0 +1,29 @@
+kubectl get pods -n kube-system
+kubectl run nginx --image nginx
+kubectl run redis --image redis --dry-run=client -o yaml > pod.yaml
+kubectl get pods
+kubectl create -f pod-definition.yml
+kubectl describe pod my-pod
+kubectl delete pod my-pod
+kubectl edit pod redis
+kubectl apply -f pod.yml
+kubectl get replicationcontroller
+kubectl get replicationset
+kubectl replace -f replicaset-definition.yml
+kubectl scale --replicas=6 replicaset-definition.yml
+kubectl scale --replicas=6 replicaset myapp-replicaset
+kubectl delete replicaset my-replicaset
+kubectl get deployments
+kubectl get all
+kubectl run nginx --image=nginx --dry-run=client -o yaml
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
+kubectl get pods --namespace=kube-system
+kubectl get pods --all-namespaces
+kubectl config set-context $(kubectl config current-context) --namespace=dev
+kubectl get services
+kubectl get svc
+kubectl delete service my-service
+kubectl expose deployment nginx --port 80
+kubectl set image deployment nginx nginx=nginx:1.18
+kubectl apply -f file.yaml
+kubectl replace --force -f nginx.yaml

@@ -1,0 +1,9 @@
+Kubernetes the hard way
+https://github.com/mmumshad/kubernetes-the-hard-way
+
+CKA course material
+https://github.com/kodekloudhub/certified-kubernetes-administrator-course
+
+
+Kubectl usage conventions
+https://kubernetes.io/docs/reference/kubectl/conventions/
