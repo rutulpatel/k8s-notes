@@ -37,3 +37,22 @@ kubectl run custom-nginx --image=nginx --port=8080
 kubectl create namespace dev-ns
 kubectl create deployment redis-deploy --namespace=dev-ns --image=redis --replicas=2
 kubectl run httpd --image=httpd:alpine --port=80 --expose
+kubectl -n kube-system get pods
+kubectl get pods --selector app=App1
+kubectl get pods --selector env=dev
+kubectl get all --selector env=prod
+kubectl get pods --selector env=prod,bu=finance,tier=frontend # and selector
+kubectl get pods --selector env=prod;bu=finance;tier=frontend # or selector
+kubectl get pods --show-labels #shows all pods labels
+kubectl get pods -l env=dev
+kubectl get pods -l env=dev --no-headers | wc -l
+kubectl taint nodes node-name key=value:taint-effect #(taint-effect = NoSchedule|PreferNoSchedule|NoExecute)
+kubectl taint nodes node01 spray=mortein:NoSchedule
+kubectl describe node kubemaster | grep -i taint
+kubectl taint nodes controlplane node-role.kubernetes.io/master:NoSchedule-
+kubectl explain pod --recursive | grep -A5 tolerations # to get pod definition properties
+kubectl label nodes <node-name> key=value
+kubectl get nodes node01 --show-labels
+kubectl get deployment blue -o yaml 
+
+
