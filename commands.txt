@@ -54,5 +54,9 @@ kubectl explain pod --recursive | grep -A5 tolerations # to get pod definition p
 kubectl label nodes <node-name> key=value
 kubectl get nodes node01 --show-labels
 kubectl get deployment blue -o yaml 
-
-
+kubectl get daemonsets
+kubectl get ds
+ps -ef | grep kubelet 
+grep -i static /var/lib/kubelet/config.yaml
+kubectl run static-busybox --image=busybox --command sleep 1000 --restart=Never --dry-run=client > static-busybox.yaml
+kubectl get events
