@@ -11,3 +11,16 @@ spec:
       image: nginx
     - name: backend-container
       image: redis
+      command: ["sleep2.0"]
+      args: ["10"]
+      env:
+        - name: APP_COLOR
+          value: pink
+        - name: APP_NAME
+          valueFrom:
+            configMapRef: 
+              name: app-config
+              key: APP_NAME
+        - name: PASSWORD
+          valueFrom: 
+            secretKeyRef:

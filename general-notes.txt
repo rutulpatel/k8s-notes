@@ -7,3 +7,7 @@ https://github.com/kodekloudhub/certified-kubernetes-administrator-course
 
 Kubectl usage conventions
 https://kubernetes.io/docs/reference/kubectl/conventions/
+
+Metrics Server
+minikube setup - minikube addons enable metrics-Server
+git clone https://github.com/kubernetes-incubator/metrics-server.git

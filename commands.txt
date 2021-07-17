@@ -60,3 +60,30 @@ ps -ef | grep kubelet
 grep -i static /var/lib/kubelet/config.yaml
 kubectl run static-busybox --image=busybox --command sleep 1000 --restart=Never --dry-run=client > static-busybox.yaml
 kubectl get events
+kubectl top node #requires metrics-api
+kubectl top pod #requires metrics-api
+kubectl create -f . # executes all *.yaml from present directory
+watch "kubectl top node"
+kubectl logs -f podName
+kubectl logs -f podName containerName
+kubectl rollout status deployment/myapp-deployment
+kubectl rollout history deployment/myapp-deployment
+kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1
+kubectl rollout undo deployment/myapp-deployment
+kubectl create configmap app-config --from-literal=APP_COLOR=blue --from-literal=APP_MOD=prod
+kubectl create configmap app-config --from-file=app_config.properties
+kubectl create -f config-map.yml
+kubectl get configmaps
+kubectl get cm
+kubectl explain pods --recursive | less
+kubectl explain pods --recursive | grep A8 envFrom
+kubectl create secret generic app-secret --from-literal=DB_HOST=mysql
+kubectl create secret generic app-secret --from-file=secret.properties
+kubectl get secrets
+kubectl describe secret my-secret
+kube-controller-manager --pod-eviction-timeout=5m0s
+kubectl drain node-1 # moves pods to different nodes
+kubectl uncordon node-1 #allows to schedule pods on node-1
+kubectl cordon node-2 # unschedulable
+kubectl drain node01 --ignore-daemonsets
+
