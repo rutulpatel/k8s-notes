@@ -1,0 +1,21 @@
+
+apt update
+This will update the package lists from the software repository.
+
+
+apt install kubeadm=1.20.0-00
+This will install the kubeadm version 1.20
+
+
+kubeadm upgrade node
+This will upgrade the node01 configuration.
+
+
+apt install kubelet=1.20.0-00 This will update the kubelet with the version 1.20.
+
+
+You may need to restart kubelet after it has been upgraded.
+Run: systemctl restart kubelet
+
+
+Type exit or enter CTL + d to go back to the controlplane node.

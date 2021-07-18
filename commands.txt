@@ -86,4 +86,14 @@ kubectl drain node-1 # moves pods to different nodes
 kubectl uncordon node-1 #allows to schedule pods on node-1
 kubectl cordon node-2 # unschedulable
 kubectl drain node01 --ignore-daemonsets
+kubectl drain node01 --ignore-daemonsets --force
+kubeadm upgrade plan
+kubeadm upgrade apply
+apt-get upgrade -y kubeadm=1.12.0-00
+kubeadm upgrade apply v1.12.0
+apt-get upgrade -y kubelet=1.12.0-00
+kubeadm token list
+kubectl version --short
+kubeadm version
+kubectl get all --all-namespaces -o yaml > all-deploy-services.yaml
 
