@@ -27,3 +27,5 @@ https://github.com/etcd-io/website/blob/main/content/en/docs/v3.5/op-guide/recov
 
 https://www.youtube.com/watch?v=qRPNuT080Hk
 
+Certificate spreadsheet link https://github.com/mmumshad/kubernetes-the-hard-way/blob/master/tools/kubernetes-certs-checker.xlsx
+

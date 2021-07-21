@@ -96,4 +96,38 @@ kubeadm token list
 kubectl version --short
 kubeadm version
 kubectl get all --all-namespaces -o yaml > all-deploy-services.yaml
+kubectl create serviceaccount sa1
+kubectl get serviceaccount
+kubectl get csr
+kubectl certificate approve jane
+kubectl certificate deny agent-x
+kubectl get csr jane -o yaml
+curl https://mykube:6443/api/v1/pods --key admin.key --cert admin.crt --cacert ca.crt
+kubectl get pods --server my-kube-playground:6443 --client-key admin.key --client-certificate admin.crt --certificate-authority ca.crt
+kubectl get pods --kubeconfig kube.config #default location - $HOME/.kube/config
+kubectl config view
+kubectl config use-context prod-user@production
+kubectl config --kubeconfig=/root/my-kube-config use-context research
+kubectl config -h
+kubectl proxy # starts proxy to access the cluster, starts on port 8001
+kubectl get roles
+kubectl get roles --all-namespaces
+kubectl describe role kube-proxy -n kube-system
+kubectl get rolebindings
+kubectl describe role developer
+kubectl describe rolebinding devuser-developer-binding
+kubectl auth can-i create deployments
+kubectl auth can-i delete nodes
+kubectl auth can-i create deployments --as dev-user
+kubectl auth can-i create pods --as dev-user
+kubectl auth can-i create pods --as dev-user -n test
+
+
+
+
+
+
+
+
+
 

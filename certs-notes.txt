@@ -1,0 +1,21 @@
+Server-CERTS
+
+openssl genrsa -out ca.key 2048
+-> ca.key
+openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out ca.csr
+->ca.csr
+openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt
+->ca.crt
+
+
+
+CLIENT-CERTS
+
+openssl genrsa -out admin.key 2048
+->admin.key
+openssl req -new -key admin.key -subj "/CN=kube-admin" -out admin.csr
+->admin.csr
+openssl x509 -req -in admin.csr -CA ca.crt -CAkey ca.key -out admin.crt
+->admin.crt
+
+
