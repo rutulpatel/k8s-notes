@@ -1,0 +1,74 @@
+file to update for forwarding traffic from on eth to another to configure host as a router.
+cat /proc/sys/net/ipv4/ip_forward 
+set value in this file to 1
+
+also modify same value here to persist the changes
+/etc/sysctl.conf
+
+
+
+ip link
+ip addr
+ip addr add 192.168.1.10/24 dev eth
+
+
+/etc/network/interfaces file for permanent changes
+
+
+NETWORK NAMESPCACES
+
+ip netns add red
+ip netns add blue
+ip netns
+ip link
+ip netns exec red ip link
+ip -n red link
+arp
+ip netns exec red arp
+route
+ip netns exec red route
+ip link add veth-red type veth peer name veth-blue
+ip link set veth-red netns red
+ip link set veth-blue netns blue
+ip -n red addr add 192.168.15.1 dev veth-red
+ip -n blue addr add 192.168.15.2 dev veth-blue
+ip -n red link set veth-red up
+ip -n blue link set veth-blue up
+
+
+ip link set veth-red netns red
+ip link set veth-red-br master v-net-0
+ip link set veth-blue netns blue
+ip link set veth-blue-br master v-net-0
+ip -n red addr add 192.168.15.1 dev veth-red
+ip -n blue addr add 192.168.15.2 dev veth-blue
+ip -n red link set veth-red up
+ip -n blue link set veth-blue up
+
+iptables -t nat -A Docker -j DNAT --dport 8080 --to-destination 172.17.0.3:80
+iptables -nvL -t nat
+
+
+
+
+
+
+ip link
+ip addr
+ip addr add 192.168.1.10/24 dev eth0
+ip route
+ip route add 192.168.1.0/24 via 192.168.2.1
+cat /proc/sys/net/ipv4/ip_forward
+arp
+netstat -plnt
+route
+
+
+
+
+
+
+
+
+
+

@@ -121,6 +121,35 @@ kubectl auth can-i delete nodes
 kubectl auth can-i create deployments --as dev-user
 kubectl auth can-i create pods --as dev-user
 kubectl auth can-i create pods --as dev-user -n test
+kubectl api-resources --namespaced=true
+kubectl api-resources --namespaced=false
+kubectl get clusterroles 
+kubectl get clusterrolebindings
+kubectl create secret docker-registry regcred --docker-server= --docker-username= --docker-password= --docker-email=
+kubectl get netpol
+docker run --mount type=bind,source=/data/mysql,target=/var/lib/mysql mysql
+kubectl get persistentvolumeclaim 
+kubectl exec webapp -- cat /log/app.log
+ip link
+ip addr
+ip addr add 192.168.1.10/24 dev eth0
+ip route
+ip route add 192.168.1.0/24 via 192.168.2.1
+cat /proc/sys/net/ipv4/ip_forward
+arp
+netstat -plnt
+route
+kubectl get nodes -o wide
+ip a | grep 10.0.63.12
+arp node01
+netstat -na | grep 2380
+ifconfig -a
+cat /etc/network/interfaces
+ip r
+netstat -natulp | grep kube-scheduler
+ps -aux | grep kubelet
+ls /opt/cni/bin 
+ls /etc/cni/net.d 
 
 
 

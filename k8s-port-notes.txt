@@ -1,0 +1,9 @@
+Default Ports
+kube-api 6443
+etcd 2379
+kubelet 10250
+kube-scheduler 10251
+kube-controller-manager 10252
+services 30000-32767
+etcd client 2380
+kube-scheduler 10259
