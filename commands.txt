@@ -149,7 +149,10 @@ ip r
 netstat -natulp | grep kube-scheduler
 ps -aux | grep kubelet
 ls /opt/cni/bin 
-ls /etc/cni/net.d 
+ls /etc/cni/net.d #tells us what cni is configured
+kubectl run busybox --image=busybox --comand sleep 1000 --dry-run=client -o yaml > pod.yaml # add nodeName in spec to run it on a particular node, then run "kubectl exec -it busybox -- sh" to access the container 
+kubectl -n ingress-space expose deployment ingress-controller --name ingress --port 80 --targetPort 80 --type NodePort --dry-run=client -o yaml > ingress-service.yaml
+
 
 
 

@@ -1,0 +1,90 @@
+kubectl config set-context $(kubectl config current-context) --namespace=mynamespace
+Some of the most common and useful commands with namespace are listed below:
+
+kubectl get namespaces
+kubectl create namespace mynamespace
+kubectl get pods --all-namespaces (List all pods with status from all namespaces.)
+kubectl get po -o wide -n <namspace1> -n <namespace2> -n <namespace3> (This command will identify the pods in each namespace)
+kubectl describe namespace <namespace>
+kubectl config view --minify | grep namespace (This command will ensure that you set the namespace correctly for your current context.) 
+
+
+
+alias k='kubectl'
+alias kc='k config view --minify | grep name'
+alias kdp='kubectl describe pod'
+alias krh='kubectl run --help | more'
+alias ugh='kubectl get --help | more'
+alias c='clear'
+
+
+
+
+
+
+alias kd='kubectl describe pod'
+alias ke='kubectl explain'
+alias kf='kubectl create -f'
+alias kg='kubectl get pods --show-labels'
+alias kr='kubectl replace -f'
+alias kh='kubectl --help | more'
+alias krh='kubectl run --help | more'
+alias ks='kubectl get namespaces'
+alias l='ls -lrt'
+alias ll='vi ls -rt | tail -1'
+alias kga='k get pod --all-namespaces'
+alias kgaa='kubectl get all --show-labels'
+
+The solution? Create a ~/.vimrc file with these lines before creating YAML files with the vi editor to make editing easier:
+
+set smarttab
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set number
+
+
+
+kubectl run busybox --image=busybox --dry-run=client -o yaml --restart=Never > yamlfile.yaml
+kubectl create job my-job --dry-run=client -o yaml --image=busybox -- date  > yamlfile.yaml
+kubectl get -o yaml deploy/nginx > 1.yaml (Ensure that you have a deployment named as nginx)
+kubectl run busybox --image=busybox --dry-run=client -o yaml --restart=Never -- /bin/sh -c "while true; do echo hello; echo hello again;done" > yamlfile.yaml
+kubectl run wordpress --image=wordpress –-expose –-port=8989 --restart=Never -o yaml
+kubectl run test --image=busybox --restart=Never --dry-run=client -o yaml -- bin/sh -c 'echo test;sleep 100' > yamlfile.yaml  (Notice that --bin comes at the end. This will create yaml file.)
+
+
+
+
+wget https://github.com/ahmetb/kubectx/releases/download/v0.9.0/kubectx_v0.9.0_linux_x86_64.tar.gz
+wget https://github.com/ahmetb/kubectx/releases/download/v0.9.0/kubens_v0.9.0_linux_x86_64.tar.gz
+Then you extract them with the following commands:
+
+tar -xvf kubectx_v0.9.0_linux_x86_64.tar.gz
+tar -xvf kubens_v0.9.0_linux_x86_64.tar.gz
+Finally, you move them to your PATH:
+
+sudo mv kubectx /usr/local/bin
+sudo mv kubens /usr/local/bin
+
+
+The kubectl command provides a summarized view of the resources stored by the apiserver. There are many more fields stored by the apiserver that are not shown. You can use the kubectl get command with the raw resource output to create your own visualization and commands. 
+
+You can print the raw resources in JSON with the following command:
+
+kubectl get deployments -o json
+You can also call the resource directly using the api call:
+
+kubectl get --raw=/apis/apps/v1/deployments
+You can even combine the output with tools like jq to provide different visualizations, filter the output, or feed the output to other tools for advance automation. 
+
+For example, it can be hard to find issues on clusters with multiple namespaces and deployments, but the example below uses the raw API to scan all deployments in the cluster and filter only the deployments with failing replicas:
+
+kubectl get --raw=/apis/apps/v1/deployments | jq '.items[] | {name: .metadata.name, replicas: .status.replicas, available: (.status.availableReplicas // 0), unavailable: (.status.unavailableReplicas // 0)} | select (.unavailable > 0)'
+The following is a quick explanation of the command above:
+
+First, we call the Kubernetes API to return all deployments. The default output is in JSON. It is hard to visualize the structure of the JSON document, but you can pipe to jq to get a better idea like in the example below:
+kubectl get --raw=/apis/apps/v1/deployments | jq .
+Notice that the response document has an array of items for each deployment. We want to inspect the status field of this array all the way in the end. The command below shows how to print just the data you need and a default value of 0 when the field is not available:
+kubectl get --raw=/apis/apps/v1/deployments | jq '.items[] | {name: .metadata.name, replicas: .status.replicas, available: (.status.availableReplicas // 0), unavailable: (.status.unavailableReplicas // 0)}'
+The final piece of the puzzle is using the select function to only display deployments with unavailable replicas:
+kubectl get --raw=/apis/apps/v1/deployments | jq '.items[] | {name: .metadata.name, replicas: .status.replicas, available: (.status.availableReplicas // 0), unavailable: (.status.unavailableReplicas // 0)} | select (.unavailable > 0)'
