@@ -145,12 +145,23 @@ arp node01
 netstat -na | grep 2380
 ifconfig -a
 cat /etc/network/interfaces
-ip r
 netstat -natulp | grep kube-scheduler
+ip r
 ps -aux | grep kubelet
 ls /opt/cni/bin 
 ls /etc/cni/net.d 
-
+kube-proxy --proxy-mode [userspace | iptables | ipvs ] ... 
+kube-api-server --service-cluster-ip-range ipNet
+kubelet get service
+iptables -L -t net | grep db-service
+cat /var/log/kube-proxy.log
+kubectl logs pod kube-proxy-l8xtj -n kube-system
+cat /etc/coredns/Corefile
+cat /etc/resolv.conf
+host web-service
+host 10-244-2-5 
+host 10-244-2-5.default.pod.cluster.local
+kubectl describe cm coredns -n kube-system
 
 
 
